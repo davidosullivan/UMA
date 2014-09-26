@@ -611,9 +611,7 @@ namespace UMA
 			boneHashList.Clear();
 			animatedBones = new Transform[0];
 			tempBoneData = new UMAData.BoneData[0];
-
-			Debug.Log(myRenderer.rootBone.name, myRenderer.rootBone);
-			skeleton = new UMASkeletonDefault(myRenderer.rootBone);
+			skeleton = null;
 		}
 		
 		public void UpdateBoneData()

@@ -15,7 +15,7 @@ public abstract class UMAAvatarBase : MonoBehaviour {
 	public RuntimeAnimatorController animationController;
 	[NonSerialized]
 	public GameObject umaChild;
-	private RaceData umaRace = null;
+	protected RaceData umaRace = null;
 	
 	public virtual void Start()
 	{
@@ -40,7 +40,7 @@ public abstract class UMAAvatarBase : MonoBehaviour {
 		}
 	}
 
-	public void Load(UMARecipeBase umaRecipe)
+	public virtual void Load(UMARecipeBase umaRecipe)
 	{
 		if (umaRecipe == null) return;
 		Profiler.BeginSample("Load");
@@ -100,20 +100,26 @@ public abstract class UMAAvatarBase : MonoBehaviour {
 		umaData.Dirty(true, true, true);
 	}
 
-	public void Hide()
+	public virtual void Hide()
 	{
-		Destroy(umaChild);
+		if (umaChild != null)
+		{
+			Destroy(umaChild);
+		}
 		umaChild = null;
-		umaData.umaRoot = null;
-		umaData.myRenderer = null;
-		umaData.animator = null;
-		umaData._hasUpdatedBefore = false;
-		umaData.firstBake = true;
-		umaData.ClearBoneData();
+		if (umaData != null)
+		{
+			umaData.umaRoot = null;
+			umaData.myRenderer = null;
+			umaData.animator = null;
+			umaData._hasUpdatedBefore = false;
+			umaData.firstBake = true;
+			umaData.ClearBoneData();
+		}
 		umaRace = null;
 	}
 
-	public void Show()
+	public virtual void Show()
 	{
 		if (umaRecipe != null)
 		{
